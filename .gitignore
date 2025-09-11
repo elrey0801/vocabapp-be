@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# FastAPI
+.env
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Operating System
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+bin/
+
+# Logs
+*.log
+logs/
+
+# MySQL
+*.sql
+*.sql.gz
+*.dump
+
+# Other
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Temporary files
+*.bak
+*.tmp
+*.temp
+
+*.cfg
+Scripts/
+Include/
+lib64
