@@ -8,6 +8,7 @@ class WordSet(DBMySQL.Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), nullable=False)
+    description = Column(String(1000), nullable=True)
     
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

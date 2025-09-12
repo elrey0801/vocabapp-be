@@ -20,7 +20,20 @@ class DBMySQL:
     @classmethod
     def connect(cls):
         try:
-            cls.engine = create_engine(DATABASE_URL, echo=False)
+            cls.engine = create_engine(
+                DATABASE_URL, 
+                echo=False,
+                pool_size=5,         
+                max_overflow=10,     
+                pool_pre_ping=True,    # Tự động kiểm tra connection trước khi sử dụng
+                pool_recycle=3600,     # Tái tạo connection sau 1 giờ (3600s)
+                pool_timeout=30,       # Timeout khi lấy connection từ pool
+                connect_args={
+                    "charset": "utf8mb4",
+                    "autocommit": False,  # Sửa về False để quản lý transaction tốt hơn
+                    "use_pure": False
+                }
+            )
             if not database_exists(cls.engine.url):
                 create_database(cls.engine.url)
                 logger.info('New DB_MySQL created')

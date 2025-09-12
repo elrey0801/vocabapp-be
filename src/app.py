@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from config import *
-# from routers import *
+from router import *
 
 from exception.global_exception_handler import configure_exception_handlers
 from contextlib import asynccontextmanager
@@ -14,7 +14,6 @@ async def lifespan(app: FastAPI):
     DBMySQL.connect()
     DBMySQL.Base.metadata.create_all(bind=DBMySQL.engine)
     logger.info(f'App started successfully on port = {settings.PORT}, host = {settings.HOST}')
-
     
     yield  # App running
     
@@ -39,6 +38,8 @@ app.add_middleware(
 )
 
 settings.print_settings()
+
+app.include_router(WordSetRouter.get_router())
 
 configure_exception_handlers(app)
 

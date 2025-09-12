@@ -1,0 +1,32 @@
+# service/word_service.py
+
+from .service import Service
+from model import Word
+
+class WordService(Service):
+    def create_word(self, word: Word) -> Word:
+        self.db.add(word)
+        self.db.commit()
+        self.db.refresh(word)
+        return word
+    
+    def get_word(self, word_id: int) -> Word | None:
+        return self.db.query(Word).filter(Word.id == word_id).first()
+    
+    def update_word(self, new_word: Word) -> Word:
+        existing_word = self.get_word(new_word.id)
+        if not existing_word:
+            return None
+        for attr, value in vars(new_word).items():
+            setattr(existing_word, attr, value)
+        self.db.commit()
+        self.db.refresh(existing_word)
+        return existing_word
+    
+    def delete_word(self, word_id: int) -> bool:
+        word = self.get_word(word_id)
+        if not word:
+            return False
+        self.db.delete(word)
+        self.db.commit()
+        return True
