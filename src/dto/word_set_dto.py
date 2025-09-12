@@ -9,3 +9,11 @@ class WordSetDTO(BaseModel):
     
     class Config:
         from_attributes = True
+    
+class UpdateWordSetDTO(BaseModel):
+    id: int = Field(..., description="ID of the word set")
+    name: str | None = Field(None, description="Name of the word set")
+    description: str | None = Field(None, description="Description of the word set")
+    
+    class Config:
+        from_attributes = True

@@ -22,9 +22,11 @@ class SpecialWord(DBMySQL.Base):
     type = Column(Enum(WordType), nullable=False)
     word_id = Column(Integer, ForeignKey('words.id'), nullable=False)
     examples = Column(JSON, nullable=True, default=list)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     
     # Relationships
     word = relationship("Word", back_populates="special_words")
+    user = relationship("User", back_populates="special_words")

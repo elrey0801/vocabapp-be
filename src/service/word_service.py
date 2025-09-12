@@ -2,6 +2,7 @@
 
 from .service import Service
 from model import Word
+from dto import UpdateWordDTO
 
 class WordService(Service):
     def create_word(self, word: Word) -> Word:
@@ -17,8 +18,9 @@ class WordService(Service):
         existing_word = self.get_word(new_word.id)
         if not existing_word:
             return None
-        for attr, value in vars(new_word).items():
-            setattr(existing_word, attr, value)
+        fields_to_update = [field for field in UpdateWordDTO.model_fields if getattr(new_word, field) is not None]
+        for field in fields_to_update:
+            setattr(existing_word, field, getattr(new_word, field))
         self.db.commit()
         self.db.refresh(existing_word)
         return existing_word

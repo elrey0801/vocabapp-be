@@ -12,6 +12,7 @@ class Word(DBMySQL.Base):
     fscore = Column(Integer, nullable=False)
     word_set_id = Column(Integer, ForeignKey('word_sets.id'), nullable=False)
     examples = Column(JSON, nullable=True, default=list)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
@@ -19,6 +20,6 @@ class Word(DBMySQL.Base):
     # Relationships
     word_set = relationship("WordSet", back_populates="words")
     special_words = relationship("SpecialWord", back_populates="word", cascade="all, delete-orphan")
-
+    user = relationship("User", back_populates="words")
 
 

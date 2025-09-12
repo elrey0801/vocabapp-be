@@ -49,18 +49,6 @@ class ErrorCode(Enum):
     INVALID_COOKIE_TOKEN = ErrorInfo(4017, "Invalid cookie token", status.HTTP_401_UNAUTHORIZED)
     USER_REGISTRATION_CLOSED = ErrorInfo(4018, "User registration is closed", status.HTTP_403_FORBIDDEN)
 
-    OP_DATE_MISMATCH = ErrorInfo(4500, "Date mismatch", status.HTTP_400_BAD_REQUEST)
-    OP_INVALID_DATE = ErrorInfo(4501, "Invalid date", status.HTTP_400_BAD_REQUEST)
-    OP_DATA_NOT_FOUND = ErrorInfo(4502, "Op data not found", status.HTTP_404_NOT_FOUND)
-    OP_INVALID_DATE_TYPE = ErrorInfo(4503, "Invalid date type", status.HTTP_400_BAD_REQUEST)
-    WORKING_GROUP_NOT_FOUND = ErrorInfo(4504, "Working group not found", status.HTTP_404_NOT_FOUND)
-    WORKING_ELEMENT_NOT_FOUND = ErrorInfo(4506, "Working element not found", status.HTTP_404_NOT_FOUND)
-    INVALID_GROUP_RELATIONSHIP = ErrorInfo(4507, "Invalid group relationship: group_id must be None when first_in_group is True", status.HTTP_400_BAD_REQUEST)
-    MISSING_GROUP_ID = ErrorInfo(4508, "Missing group_id: group_id must not be None when first_in_group is False", status.HTTP_400_BAD_REQUEST)
-    OP_DATE_RANGE_TOO_LARGE = ErrorInfo(4509, "Date range is too large, maximum 10 days allowed", status.HTTP_400_BAD_REQUEST)
-
-    INVALID_SCHEDULE_TIME = ErrorInfo(4510, "Schedule end time cannot be earlier than schedule start time", status.HTTP_400_BAD_REQUEST)
-
-    MONGO_DB_ERROR = ErrorInfo(5000, "MongoDB error", status.HTTP_500_INTERNAL_SERVER_ERROR)
+    WORD_SET_NOT_FOUND = ErrorInfo(4500, "Word set not found", status.HTTP_404_NOT_FOUND)
 
 
