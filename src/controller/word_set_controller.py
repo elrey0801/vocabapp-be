@@ -15,3 +15,4 @@ class WordSetController:
         
     def create_word_set(self, name: str, description: str = None) -> WordSet:
         return self.word_set_service.create_word_set(WordSet(name=name, description=description))
+    
