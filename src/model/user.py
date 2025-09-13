@@ -60,3 +60,4 @@ class User(DBMySQL.Base):
     word_sets = relationship("WordSet", back_populates="user", cascade="all, delete-orphan")
     special_words = relationship("SpecialWord", back_populates="user", cascade="all, delete-orphan")
     words = relationship("Word", back_populates="user", cascade="all, delete-orphan")
+    tokens = relationship("Token", back_populates="user", cascade="all, delete-orphan")

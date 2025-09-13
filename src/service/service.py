@@ -1,9 +1,9 @@
 # service/service.py
 from fastapi import Depends
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from config.mysql import DBMySQL
 
 
 class Service:
-    def __init__(self, db: Session = Depends(DBMySQL.get_db)):
+    def __init__(self, db: AsyncSession = Depends(DBMySQL.get_async_db)):
         self.db = db

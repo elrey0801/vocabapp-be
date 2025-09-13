@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     
     ACCESS_TOKEN_MAX_AGE: int = int(os.getenv("ACCESS_TOKEN_MAX_AGE", 60*60))
     REFRESH_TOKEN_MAX_AGE: int = int(os.getenv("REFRESH_TOKEN_MAX_AGE", 60*60*24*7))
+    
+    AI_API_KEY: str = os.getenv("AI_API_KEY", "No AI API KEY")
 
     OPEN_USER_REGISTRATION: bool = os.getenv("OPEN_USER_REGISTRATION", 0) == 1
     PRODUCTION_MODE: bool = os.getenv("PRODUCTION_MODE", 0) == 1
