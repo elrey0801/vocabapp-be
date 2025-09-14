@@ -13,7 +13,7 @@ class WordSetController:
         self.word_set_service = word_set_service
         
     async def create_word_set(self, name: str, description: str = None) -> WordSet:
-        return await self.word_set_service.create_word_set(WordSet(name=name, description=description))
+        return await self.word_set_service.create_word_set(WordSet(name=name, description=description, user_id=1))
     
     async def update_word_set(self, word_set_id: int, name: str = None, description: str = None) -> WordSet:
         update_dto = UpdateWordSetDTO(id=word_set_id, name=name, description=description)

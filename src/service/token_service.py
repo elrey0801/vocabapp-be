@@ -9,7 +9,7 @@ from config import settings
 class TokenService(Service):
 
     async def create_token(self, token: Token) -> Token:
-        await self.db.add(token)
+        self.db.add(token)
         await self.db.commit()
         return token
     

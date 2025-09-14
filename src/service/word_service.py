@@ -6,7 +6,7 @@ from dto import UpdateWordDTO
 
 class WordService(Service):
     async def create_word(self, word: Word) -> Word:
-        await self.db.add(word)
+        self.db.add(word)
         await self.db.commit()
         await self.db.refresh(word)
         return word

@@ -32,6 +32,7 @@ class ErrorCode(Enum):
     INVALID_CREDENTIALS = ErrorInfo(4005, "Invalid credentials", status.HTTP_401_UNAUTHORIZED)
     FORBIDDEN = ErrorInfo(4006, "You don't have permission to access this resource", status.HTTP_403_FORBIDDEN)
     USER_NOT_ACTIVATED = ErrorInfo(4007, "User is not active", status.HTTP_401_UNAUTHORIZED)
+    INVALID_REQUEST = ErrorInfo(4008, "Invalid request", status.HTTP_400_BAD_REQUEST)
 
     
     INVALID_HEADER_USERNAME = ErrorInfo(4007, "Invalid header username", status.HTTP_401_UNAUTHORIZED)
