@@ -5,24 +5,35 @@ from exception import ErrorCode, AppException
 from config import logger
 from .service import Service
 from dto import UpdateUserDTO
+from sqlalchemy import select
 
 class UserService(Service):
     async def create_user(self, user: User) -> User:
-        await self.db.add(user)
+        self.db.add(user)
         await self.db.commit()
         await self.db.refresh(user)
         return user
         
     async def get_all_users(self) -> list[User]:
-        return await self.db.query(User).all()
+        # return await self.db.query(User).all()
+        users = await self.db.execute(select(User))
+        return users.scalars().all()
     
     async def get_user_by_id(self, user_id: int) -> User:
-        user = await self.db.query(User).filter(User.id == user_id).first()
-        return user
+        user = await self.db.execute(select(User).filter(User.id == user_id))
+        return user.scalars().first()
     
     async def get_user_by_username(self, username: str) -> User:
-        user = await self.db.query(User).filter(User.username == username).first()
-        return user
+        user = await self.db.execute(select(User).filter(User.username == username))
+        return user.scalars().first()
+    
+    async def get_user_by_email(self, email: str) -> User:
+        user = await self.db.execute(select(User).filter(User.email == email))
+        return user.scalars().first()
+    
+    async def get_user_by_phone(self, phone: str) -> User:
+        user = await self.db.execute(select(User).filter(User.phone == phone))
+        return user.scalars().first()
     
     async def update_user(self, new_user: UpdateUserDTO) -> User:
         existing_user = await self.get_user_by_username(new_user.username)

@@ -15,3 +15,8 @@ class TokenService(Service):
     
     async def get_token_by_id(self, token_id: int) -> Token:
         return await self.db.query(Token).filter(Token.id == token_id).first()
+    
+    async def update_token(self, token: Token) -> Token:
+        await self.db.merge(token)
+        await self.db.commit()
+        return token

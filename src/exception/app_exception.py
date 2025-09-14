@@ -16,7 +16,7 @@ class AppException(Exception):
             frame = inspect.currentframe().f_back
             filename = Path(frame.f_code.co_filename).name
             function_name = frame.f_code.co_name
-            self.error_path = f"{filename}:{function_name}"
+            self.error_path = f"[{filename}]:[{function_name}]"
         else:
             self.error_path = error_path
             
