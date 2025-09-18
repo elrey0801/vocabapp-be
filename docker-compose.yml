@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  vocabapp-be:
+    image: ghcr.io/elrey0801/vocabapp-be:latest
+    container_name: vocabapp-backend
+    ports:
+      - "9999:9999"
+    volumes:
+      - /root/env_var/vocab_app_env:/app/.env
+      - /root/app-log/vocabapp.log:/app/app.log
+    restart: always
+    environment:
+      - PYTHONUNBUFFERED=1

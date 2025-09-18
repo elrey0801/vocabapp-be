@@ -24,23 +24,23 @@ class VerifyCookies:
             user_controller: UserController = Depends()
         ) -> Dict[str, Any]:
         
-        # try:
-        access_token = TokenDTO(
-            token=request.cookies.get(self.access_token_cookie),
-            id=request.cookies.get(self.access_token_id_cookie),
-            token_type=TokenType.ACCESS
-        )
-        refresh_token = TokenDTO(
-            token=request.cookies.get(self.refresh_token_cookie),
-            id=request.cookies.get(self.refresh_token_id_cookie),
-            token_type=TokenType.REFRESH
-        )
-        username = request.cookies.get(self.username_cookie)
-        # except:
-        #     raise AppException(
-        #         error_code=ErrorCode.INVALID_COOKIE_TOKEN, 
-        #         alt_message="Missing authentication cookies"
-        #     )
+        try:
+            access_token = TokenDTO(
+                token=request.cookies.get(self.access_token_cookie),
+                id=request.cookies.get(self.access_token_id_cookie),
+                token_type=TokenType.ACCESS
+            )
+            refresh_token = TokenDTO(
+                token=request.cookies.get(self.refresh_token_cookie),
+                id=request.cookies.get(self.refresh_token_id_cookie),
+                token_type=TokenType.REFRESH
+            )
+            username = request.cookies.get(self.username_cookie)
+        except:
+            raise AppException(
+                error_code=ErrorCode.INVALID_COOKIE_TOKEN, 
+                alt_message="Missing authentication cookies"
+            )
         
         if username is None:
             raise AppException(error_code=ErrorCode.INVALID_COOKIE_USERNAME)

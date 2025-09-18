@@ -23,7 +23,7 @@ class UserService(Service):
         user = await self.db.execute(select(User).filter(User.id == user_id))
         return user.scalars().first()
     
-    async def get_user_by_username(self, username: str) -> User:
+    async def get_user_by_username(self, username: str) -> User | None:
         # user = await self.db.execute(select(User).filter(User.username == username))
         # return user.scalars().first()
         stmt = (
