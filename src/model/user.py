@@ -57,7 +57,7 @@ class User(DBMySQL.Base):
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     
     # Relationships
-    word_sets = relationship("WordSet", back_populates="user", cascade="all, delete-orphan")
-    special_words = relationship("SpecialWord", back_populates="user", cascade="all, delete-orphan")
-    words = relationship("Word", back_populates="user", cascade="all, delete-orphan")
-    tokens = relationship("Token", back_populates="user", cascade="all, delete-orphan")
+    word_sets = relationship("WordSet", back_populates="user", cascade="all, delete-orphan", lazy='selectin')
+    special_words = relationship("SpecialWord", back_populates="user", cascade="all, delete-orphan", lazy='selectin')
+    words = relationship("Word", back_populates="user", cascade="all, delete-orphan", lazy='selectin')
+    tokens = relationship("Token", back_populates="user", cascade="all, delete-orphan", lazy='selectin')

@@ -2,6 +2,7 @@
 
 from pydantic import BaseModel, Field
 from datetime import datetime
+from model import Role
 
 class UserDTO(BaseModel):
     id: int
@@ -9,6 +10,7 @@ class UserDTO(BaseModel):
     email: str | None
     phone: str | None
     is_active: bool
+    role: Role
     created_at: datetime
     
     class Config:

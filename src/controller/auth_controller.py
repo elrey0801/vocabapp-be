@@ -15,7 +15,9 @@ class AuthController:
         self.user_service = user_service
 
     async def create_token(self, user: User, token_type: TokenType) -> Token:
+        await self.user_service.db.refresh(user)  # Ensure user is up-to-date to avoid stale data issues
         created_at=datetime.now(timezone.utc)
+        # logger.debug(f"user id = {user.id}, token_type = {token_type}")
         token_payload = {
             "user_id": user.id,
             "exp": created_at + (timedelta(seconds=settings.ACCESS_TOKEN_MAX_AGE) 
@@ -72,7 +74,7 @@ class AuthController:
                 alt_message=f"Token ({token.token_type}) with id={token.id} not found",
                 return_message="Invalid token"
             )
-        if token_db.token != token.token or token_db.token_type != TokenType[token.token_type]:
+        if token_db.token != token.token or token_db.token_type != token.token_type:
             raise AppException(
                 error_code=ErrorCode.INVALID_TOKEN, 
                 alt_message=f"Invalid {token.token_type} token",

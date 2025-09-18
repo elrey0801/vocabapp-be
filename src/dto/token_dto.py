@@ -2,13 +2,13 @@
 
 from pydantic import BaseModel
 from model import TokenType
+from datetime import datetime
+from typing import Optional
 
 class TokenDTO(BaseModel):
     id: int
     token: str
-    user_id: int
     token_type: TokenType
-    created_at: str
     
     class Config:
         from_attributes = True

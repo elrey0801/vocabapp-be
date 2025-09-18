@@ -24,3 +24,12 @@ class UpdateWordDTO(BaseModel):
     
     class Config:
         from_attributes = True
+
+class CreateWordDTO(BaseModel):
+    word_set_id: int = Field(..., description="ID of the associated word set")
+    name: str = Field(..., description="Name of the word")
+    meaning: str = Field(..., description="Meaning of the word")
+    examples: list[str] | None = Field(None, description="Example sentences for the word")
+    
+    class Config:
+        from_attributes = True

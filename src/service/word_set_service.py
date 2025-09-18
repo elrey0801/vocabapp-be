@@ -18,10 +18,11 @@ class WordSetService(Service):
         result = await self.db.execute(select(WordSet).filter(WordSet.id == word_set_id))
         return result.scalars().first()
     
-    async def update_word_set(self, new_word_set: UpdateWordSetDTO) -> WordSet | None:
-        existing_word_set = await self.get_word_set(new_word_set.id)
-        if not existing_word_set:
-            return None
+    async def get_all_word_sets_by_user(self, user_id: int) -> list[WordSet]:
+        result = await self.db.execute(select(WordSet).filter(WordSet.user_id == user_id))
+        return result.scalars().all()
+    
+    async def update_word_set(self, existing_word_set: WordSet , new_word_set: UpdateWordSetDTO) -> WordSet | None:
         fields_to_update = [field for field in UpdateWordSetDTO.model_fields if getattr(new_word_set, field) is not None]
         for field in fields_to_update:
             setattr(existing_word_set, field, getattr(new_word_set, field))

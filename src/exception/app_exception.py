@@ -5,7 +5,7 @@ from pathlib import Path
 from exception.error_code import ErrorCode
 
 class AppException(Exception):
-    def __init__(self, error_code: ErrorCode, error_path: str = None, alt_message: str = None, return_message: str = None) -> None:
+    def __init__(self, error_code: ErrorCode, alt_message: str = None, return_message: str = None, error_path: str = None) -> None:
         if alt_message:
             super().__init__(alt_message)
         else:

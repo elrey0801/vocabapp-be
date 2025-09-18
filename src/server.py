@@ -1,5 +1,5 @@
 # server.py
-from config.env_config import settings
+from config import settings
 
 if __name__ == "__main__":
     import uvicorn

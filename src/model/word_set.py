@@ -15,5 +15,5 @@ class WordSet(DBMySQL.Base):
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     
     # Relationship
-    words = relationship("Word", back_populates="word_set", cascade="all, delete-orphan")
+    words = relationship("Word", back_populates="word_set", cascade="all, delete-orphan", lazy='selectin')
     user = relationship("User", back_populates="word_sets")

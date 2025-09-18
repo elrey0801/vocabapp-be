@@ -19,7 +19,7 @@ class Word(DBMySQL.Base):
     
     # Relationships
     word_set = relationship("WordSet", back_populates="words")
-    special_words = relationship("SpecialWord", back_populates="word", cascade="all, delete-orphan")
+    special_words = relationship("SpecialWord", back_populates="word", cascade="all, delete-orphan", lazy='selectin')
     user = relationship("User", back_populates="words")
 
 

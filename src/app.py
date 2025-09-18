@@ -41,6 +41,8 @@ settings.print_settings()
 
 app.include_router(WordSetRouter.get_router())
 app.include_router(UserRouter.get_router())
+app.include_router(AuthRouter.get_router())
+app.include_router(WordRouter.get_router())
 
 configure_exception_handlers(app)
 

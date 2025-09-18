@@ -2,10 +2,10 @@
 
 from model import User
 from exception import ErrorCode, AppException
-from config import logger
 from .service import Service
 from dto import UpdateUserDTO
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 class UserService(Service):
     async def create_user(self, user: User) -> User:
@@ -24,8 +24,16 @@ class UserService(Service):
         return user.scalars().first()
     
     async def get_user_by_username(self, username: str) -> User:
-        user = await self.db.execute(select(User).filter(User.username == username))
-        return user.scalars().first()
+        # user = await self.db.execute(select(User).filter(User.username == username))
+        # return user.scalars().first()
+        stmt = (
+            select(User)
+            .where(User.username == username)
+            .options(selectinload(User.tokens))  # Eager load relationships để tránh lazy loading và stale data
+            # Thêm .options(selectinload(User.other_relationship)) nếu cần
+        )
+        result = await self.db.execute(stmt)
+        return result.scalar_one_or_none()
     
     async def get_user_by_email(self, email: str) -> User:
         user = await self.db.execute(select(User).filter(User.email == email))

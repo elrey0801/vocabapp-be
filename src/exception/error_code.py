@@ -51,5 +51,6 @@ class ErrorCode(Enum):
     USER_REGISTRATION_CLOSED = ErrorInfo(4018, "User registration is closed", status.HTTP_403_FORBIDDEN)
 
     WORD_SET_NOT_FOUND = ErrorInfo(4500, "Word set not found", status.HTTP_404_NOT_FOUND)
+    WORD_NOT_FOUND = ErrorInfo(4501, "Word not found", status.HTTP_404_NOT_FOUND)
 
 
