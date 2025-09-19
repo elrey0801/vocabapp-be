@@ -92,7 +92,7 @@ class AuthController:
         try:
             jwt.decode(token.token, user_db.private_key, algorithms=["HS256"])
         except jwt.ExpiredSignatureError:
-            self.revoke_token(token)
+            await self.revoke_token(token)
             return False
         except jwt.InvalidTokenError:
             raise AppException(
@@ -112,7 +112,7 @@ class AuthController:
                 return_message="Invalid token"
             )
         
-        if token_db.token != token.token or token_db.token_type != TokenType[token.token_type]:
+        if token_db.token != token.token or token_db.token_type != token.token_type:
             raise AppException(
                 error_code=ErrorCode.INVALID_TOKEN, 
                 alt_message=f"Invalid {token.token_type} token",
@@ -120,6 +120,6 @@ class AuthController:
             )
 
         token_db.is_revoked = True
-        self.token_service.update_token(token_db)
+        await self.token_service.update_token(token_db)
         logger.info(f"Token with id={token_db.id} revoked")
         return True

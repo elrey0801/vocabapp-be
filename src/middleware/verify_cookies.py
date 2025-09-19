@@ -1,5 +1,6 @@
 from model import User, Role, TokenType
 from controller import AuthController, UserController
+from service import UserService
 from fastapi import Request, Response, Depends
 from typing import Any, Dict
 from dto import TokenPair, TokenDTO
@@ -21,7 +22,8 @@ class VerifyCookies:
             request: Request,
             response: Response,
             auth_controller: AuthController = Depends(),
-            user_controller: UserController = Depends()
+            user_controller: UserController = Depends(),
+            user_service: UserService = Depends()
         ) -> Dict[str, Any]:
         
         try:
@@ -47,7 +49,7 @@ class VerifyCookies:
         if access_token.token is None or access_token.id is None:
             raise AppException(error_code=ErrorCode.INVALID_COOKIE_TOKEN)
 
-        user: User = await user_controller.get_user_by_username(username)
+        user: User = await user_service.get_user_by_username(username)
         if user is None:
             raise AppException(error_code=ErrorCode.USER_NOT_FOUND)
         if not user.is_active:
@@ -61,8 +63,8 @@ class VerifyCookies:
             if not await auth_controller.verify_token(refresh_token):
                 raise AppException(error_code=ErrorCode.INVALID_TOKEN, alt_message="Both access and refresh tokens are invalid")
             
-            auth_controller.revoke_token(access_token)
-            auth_controller.revoke_token(refresh_token)
+            await auth_controller.revoke_token(access_token)
+            await auth_controller.revoke_token(refresh_token)
             token_pair: TokenPair = await auth_controller.create_token_pair(user)
             CookiesUtil.set_auth_cookies(response=response, token_pair=token_pair, username=user.username)
         

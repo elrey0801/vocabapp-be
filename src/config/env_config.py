@@ -39,7 +39,6 @@ class Settings(BaseSettings):
             logger.info("CURRENT SETTINGS:")
             logger.info(f"{"APP_WORKERS"}: {self.APP_WORKERS}")
             logger.info(f"{"DB_HOST"}: {self.DB_HOST}")
-            logger.info(f"{"DB_MONGO_HOST"}: {self.DB_MONGO_HOST}")
             logger.info(f"{"PORT"}: {self.PORT}")
         
 

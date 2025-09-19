@@ -10,7 +10,7 @@ class CookiesUtil:
             cookie_str += "; HttpOnly"
         if settings.PRODUCTION_MODE and secure:
             cookie_str += "; Secure"
-        if partitioned:
+        if settings.PRODUCTION_MODE and partitioned:
             cookie_str += "; Partitioned"
         if settings.PRODUCTION_MODE and samesite:
             cookie_str += f"; SameSite={samesite}"
@@ -19,7 +19,12 @@ class CookiesUtil:
     
     @staticmethod
     def delete_cookies(response: Response, key: str):
-        response.set_cookie(key=key, value="", max_age=0)
+        cookie_str = f"{key}=; Max-Age=0; Path=/"
+        if settings.PRODUCTION_MODE:
+            cookie_str += "; Secure; SameSite=none; Partitioned"
+        cookie_str += "; HttpOnly"
+        
+        response.headers.append("Set-Cookie", cookie_str)
 
     @staticmethod
     def set_auth_cookies(response: Response, token_pair: TokenPair, username: str):
